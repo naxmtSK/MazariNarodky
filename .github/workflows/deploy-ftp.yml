@@ -13,19 +13,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Deploy to FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      # Websupport's plain FTP/FTPS (port 21) resets connections coming
+      # from GitHub Actions runners (likely an IP/firewall block on
+      # cloud datacenter ranges), so we deploy over SFTP (port 22)
+      # instead, using the same account credentials.
+      - name: Deploy over SFTP
+        uses: appleboy/scp-action@v0.1.7
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          host: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp
-          # Folder on the FTP server the files should land in. "./" means
-          # the FTP account's root folder — change it if you want a
-          # subfolder, e.g. "./martin-oslava/".
-          server-dir: ./
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/.github/**
-            **/README.md
+          port: 22
+          source: "index.html,style.css,script.js"
+          target: "./"
+          overwrite: true
