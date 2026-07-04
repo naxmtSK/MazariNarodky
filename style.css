@@ -336,10 +336,10 @@ button { font-family: inherit; cursor: pointer; }
 
 #graf-frame {
   position: absolute;
-  left: 24%;
+  left: 25%;
   top: 14%;
-  width: 52%;
-  aspect-ratio: 3 / 2.4;
+  width: 51%;
+  height: 32%;
   z-index: 4;
 }
 
