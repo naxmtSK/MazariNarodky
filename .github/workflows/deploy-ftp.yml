@@ -13,17 +13,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Websupport's plain FTP/FTPS (port 21) resets connections coming
-      # from GitHub Actions runners (likely an IP/firewall block on
-      # cloud datacenter ranges), so we deploy over SFTP (port 22)
-      # instead, using the same account credentials.
+      # Websupport's plain FTP/FTPS (port 21) resets the connection from
+      # GitHub Actions runners, and their SSH account only allows the SFTP
+      # subsystem (no shell/exec), which ruled out SCP/rsync-over-ssh too.
+      # Stage just the game files so we don't push .git/.github to the host.
+      - name: Stage deploy files
+        run: |
+          mkdir -p deploy
+          cp index.html style.css script.js deploy/
+
       - name: Deploy over SFTP
-        uses: appleboy/scp-action@v0.1.7
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
         with:
-          host: ${{ secrets.FTP_SERVER }}
+          server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          port: 22
-          source: "index.html,style.css,script.js"
-          target: "./"
-          overwrite: true
+          port: "22"
+          local_path: "./deploy/*"
+          remote_path: "./"
+          sftp_only: true
