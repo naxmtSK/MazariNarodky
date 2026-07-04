@@ -2,165 +2,161 @@
 <html lang="sk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Narodeninová úniková miestnosť pre Martina</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Finančná cesta – narodeninová úniková hra</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div id="stage">
 
-  <!-- INTRO -->
-  <div id="intro-screen" class="screen active">
-    <div class="intro-content">
-      <div class="lock-icon">🔐</div>
-      <h1>Narodeninová úniková miestnosť</h1>
-      <p class="subtitle">pripravená pre Martina</p>
+  <!-- ============ INTRO ============ -->
+  <section id="screen-intro" class="screen bg-intro active">
+    <div class="intro-box">
+      <img src="img/10-maskot.png" alt="" class="mascot mascot-intro"
+           onerror="this.style.display='none'">
+      <h1>Narodeninová<br>úniková hra</h1>
+      <p class="intro-sub">pre Martina</p>
       <p class="intro-text">
-        Vitaj v tajnej miestnosti plnej indícií. Preskúmaj oba regály,
-        vyrieš dve hádanky a spoj ich riešenia do jedného slovného spojenia,
-        ktorým odomkneš dvere. Za nimi ťa čaká prekvapenie.
+        Pred tebou sú dve zamknuté brány a päť hádaniek.
+        Každá vyriešená hádanka ti dá písmená.
+        Poskladaj z nich heslá, otvor obe brány
+        a zisti, čo ťa čaká za poslednými dverami…
       </p>
-      <button id="start-btn" class="btn-gold">Vstúpiť do miestnosti</button>
+      <button class="btn-gold" id="btn-start">▶ &nbsp;Začať hru</button>
     </div>
-  </div>
+  </section>
 
-  <!-- GAME -->
-  <div id="game-screen" class="screen">
-    <header class="game-header">
-      <h1>Úniková miestnosť</h1>
-      <ol class="steps">
-        <li id="step-1" class="step active"><span>1</span>Financie</li>
-        <li id="step-2" class="step"><span>2</span>Cesta</li>
-        <li id="step-3" class="step"><span>3</span>Dvere</li>
-      </ol>
-    </header>
-
-    <div class="room-scene">
-      <div class="room-rug" aria-hidden="true"></div>
-
-      <main class="room">
-
-        <section class="clue-panel" id="panel-financial" data-stage="financial">
-          <h2>Regál I.</h2>
-          <div class="shelf-unit">
-            <div class="shelf-row">
-              <button class="clue-card" data-clue="coins" aria-label="Indícia: mince">
-                <span class="clue-emoji">🪙</span>
-              </button>
-              <button class="clue-card" data-clue="chart" aria-label="Indícia: graf rastu">
-                <span class="clue-emoji">📈</span>
-              </button>
-              <button class="clue-card" data-clue="calculator" aria-label="Indícia: kalkulačka">
-                <span class="clue-emoji">🧮</span>
-              </button>
-            </div>
-            <div class="shelf-plank"></div>
-            <div class="shelf-row">
-              <button class="clue-card" data-clue="house" aria-label="Indícia: dom">
-                <span class="clue-emoji">🏠</span>
-              </button>
-              <button class="clue-card" data-clue="shield" aria-label="Indícia: poistný štít">
-                <span class="clue-emoji">🛡️</span>
-              </button>
-            </div>
-            <div class="shelf-plank"></div>
-          </div>
-          <form class="answer-form" data-stage="financial">
-            <label for="answer-financial">Čo spája tieto indície?</label>
-            <div class="answer-row">
-              <input type="text" id="answer-financial" autocomplete="off" placeholder="Zadaj pojem…">
-              <button type="submit">Potvrdiť</button>
-            </div>
-            <p class="feedback" id="feedback-financial"></p>
-            <p class="hint" id="hint-financial"></p>
-          </form>
-        </section>
-
-        <div class="door-wrap" aria-hidden="true">
-          <div class="door-lamp-glow"></div>
-          <div class="door">
-            <div class="door-panel door-panel--top"></div>
-            <div class="door-panel door-panel--bottom"></div>
-            <div class="door-handle"></div>
-          </div>
-        </div>
-
-        <section class="clue-panel" id="panel-cesta" data-stage="cesta">
-          <h2>Regál II.</h2>
-          <div class="shelf-unit">
-            <div class="shelf-row">
-              <button class="clue-card" data-clue="map" aria-label="Indícia: mapa">
-                <span class="clue-emoji">🗺️</span>
-              </button>
-              <button class="clue-card" data-clue="compass" aria-label="Indícia: kompas">
-                <span class="clue-emoji">🧭</span>
-              </button>
-            </div>
-            <div class="shelf-plank"></div>
-            <div class="shelf-row">
-              <button class="clue-card" data-clue="arrows" aria-label="Indícia: šípky">
-                <span class="clue-emoji">➡️</span>
-              </button>
-              <button class="clue-card" data-clue="milestone" aria-label="Indícia: míľnik">
-                <span class="clue-emoji">🏁</span>
-              </button>
-              <button class="clue-card" data-clue="signpost" aria-label="Indícia: smerovník">
-                <span class="clue-emoji">🪧</span>
-              </button>
-            </div>
-            <div class="shelf-plank"></div>
-          </div>
-          <form class="answer-form" data-stage="cesta">
-            <label for="answer-cesta">Čo vytvárajú tieto indície?</label>
-            <div class="answer-row">
-              <input type="text" id="answer-cesta" autocomplete="off" placeholder="Zadaj pojem…">
-              <button type="submit">Potvrdiť</button>
-            </div>
-            <p class="feedback" id="feedback-cesta"></p>
-            <p class="hint" id="hint-cesta"></p>
-          </form>
-        </section>
-
-      </main>
-
-      <section class="exit-door" id="exit-section">
-        <div class="exit-plaque">
-          <h2>🔒 Zámka dverí</h2>
-          <p>Spoj obe riešenia do jednej odpovede a zadaj ju sem.</p>
-          <form id="final-form">
-            <div class="answer-row">
-              <input type="text" id="final-answer" autocomplete="off" placeholder="Zadaj finálne riešenie…" disabled>
-              <button type="submit" id="final-submit" disabled>Odomknúť</button>
-            </div>
-          </form>
-          <p class="feedback" id="final-feedback"></p>
-        </div>
-      </section>
+  <!-- ============ MAPA (HUB) ============ -->
+  <section id="screen-map" class="screen bg-map">
+    <div class="map-topbar">
+      <div class="chapter-label" id="chapter-label">1. brána: FINANČNÁ</div>
+      <div class="slots" id="map-slots"></div>
     </div>
-  </div>
 
-  <!-- CLUE MODAL -->
-  <div class="clue-modal" id="clue-modal">
-    <div class="clue-modal-content">
-      <button class="close-modal" id="close-modal" aria-label="Zavrieť">✕</button>
-      <div class="clue-modal-icon" id="clue-modal-icon"></div>
-      <p id="clue-modal-text"></p>
+    <button class="station" id="st-trezor"   style="left:50%;top:86%" aria-label="Kód trezoru">🔐</button>
+    <button class="station" id="st-graf"     style="left:45%;top:70%" aria-label="Poskladaj graf">📈</button>
+    <button class="station" id="st-mince"    style="left:52%;top:55%" aria-label="Dážď mincí">🪙</button>
+    <button class="station station-gate" id="st-gate1" style="left:50%;top:42%" aria-label="Prvá brána">🔒</button>
+    <button class="station" id="st-bludisko" style="left:43%;top:26%" aria-label="Bludisko">🌿</button>
+    <button class="station" id="st-pexeso"   style="left:63%;top:19%" aria-label="Pexeso">🧳</button>
+    <button class="station station-gate" id="st-gate2" style="left:50%;top:8%" aria-label="Druhá brána">🚪</button>
+
+    <button class="btn-reset" id="btn-reset" aria-label="Začať odznova">↺</button>
+  </section>
+
+  <!-- ============ MINI HRA: TREZOR ============ -->
+  <section id="screen-trezor" class="screen bg-trezor game-screen">
+    <div class="game-topbar">
+      <button class="btn-close" data-close>✕</button>
+      <div class="game-title">Kód trezoru</div>
     </div>
-  </div>
+    <p class="game-hint" id="trezor-hint">Sleduj, ktoré svetlá zablikajú, a zopakuj poradie.</p>
+    <div id="trezor-pads">
+      <button class="pad" data-pad="0" style="left:50%;top:31%"></button>
+      <button class="pad" data-pad="1" style="left:22%;top:52%"></button>
+      <button class="pad" data-pad="2" style="left:76%;top:52%"></button>
+      <button class="pad" data-pad="3" style="left:50%;top:74%"></button>
+    </div>
+    <div class="game-status" id="trezor-status">Kolo 1 / 3</div>
+  </section>
 
-  <!-- CELEBRATION -->
-  <div id="celebration-screen" class="screen">
-    <canvas id="confetti-canvas"></canvas>
-    <div class="celebration-content">
-      <h1>🎉 Všetko najlepšie, Martin! 🎉</h1>
-      <p class="celebration-text">
-        Nech ťa tvoja <strong>finančná cesta</strong> aj ten nadchádzajúci rok
-        vedie len k úspechu, radosti a k ešte väčším víťazstvám.<br><br>
-        Veľa šťastia, zdravia a energie do ďalšieho roku života!
+  <!-- ============ MINI HRA: GRAF ============ -->
+  <section id="screen-graf" class="screen bg-graf game-screen">
+    <div class="game-topbar">
+      <button class="btn-close" data-close>✕</button>
+      <div class="game-title">Poskladaj graf rastu</div>
+    </div>
+    <p class="game-hint">Ťukni na dva dieliky a vymeň ich, kým graf nerastie správne.</p>
+    <div id="graf-frame">
+      <div id="graf-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============ MINI HRA: MINCE ============ -->
+  <section id="screen-mince" class="screen bg-mince game-screen">
+    <div class="game-topbar">
+      <button class="btn-close" data-close>✕</button>
+      <div class="game-title">Dážď mincí</div>
+    </div>
+    <div class="mince-hud">
+      <span id="mince-score">🪙 0 / 12</span>
+      <span id="mince-time">⏱ 30</span>
+    </div>
+    <p class="game-hint">Chytaj mince ťukaním! Účtom sa vyhýbaj – berú ti body.</p>
+    <div id="mince-area"></div>
+    <div class="mince-start" id="mince-start">
+      <button class="btn-gold" id="btn-mince-go">Štart!</button>
+    </div>
+  </section>
+
+  <!-- ============ MINI HRA: BLUDISKO ============ -->
+  <section id="screen-bludisko" class="screen bg-bludisko game-screen">
+    <div class="game-topbar">
+      <button class="btn-close" data-close>✕</button>
+      <div class="game-title">Bludisko</div>
+    </div>
+    <p class="game-hint">Doveď mincu k domčeku – potiahni prstom alebo použi šípky.</p>
+    <div id="maze-wrap">
+      <div id="maze"></div>
+    </div>
+    <div class="dpad">
+      <button class="dpad-btn" data-dir="up">▲</button>
+      <div class="dpad-mid">
+        <button class="dpad-btn" data-dir="left">◀</button>
+        <button class="dpad-btn" data-dir="right">▶</button>
+      </div>
+      <button class="dpad-btn" data-dir="down">▼</button>
+    </div>
+  </section>
+
+  <!-- ============ MINI HRA: PEXESO ============ -->
+  <section id="screen-pexeso" class="screen bg-pexeso game-screen">
+    <div class="game-topbar">
+      <button class="btn-close" data-close>✕</button>
+      <div class="game-title">Cestovateľské pexeso</div>
+    </div>
+    <p class="game-hint">Nájdi všetkých 6 dvojíc.</p>
+    <div id="pexeso-grid"></div>
+  </section>
+
+  <!-- ============ BRÁNA (zámka) ============ -->
+  <section id="screen-gate" class="screen bg-gate">
+    <div class="game-topbar">
+      <button class="btn-close" data-close>✕</button>
+      <div class="game-title" id="gate-title">Prvá brána</div>
+    </div>
+    <p class="game-hint" id="gate-hint">Poskladaj heslo z písmen, ktoré si získal.</p>
+    <div class="gate-slots" id="gate-slots"></div>
+    <div class="gate-chips" id="gate-chips"></div>
+  </section>
+
+  <!-- ============ FINÁLE ============ -->
+  <section id="screen-final" class="screen bg-final">
+    <canvas id="confetti"></canvas>
+    <div class="final-box">
+      <img src="img/10-maskot.png" alt="" class="mascot mascot-final"
+           onerror="this.style.display='none'">
+      <h1>🎉 Všetko najlepšie,<br>Martin! 🎉</h1>
+      <p>
+        Prešiel si celú <strong>finančnú cestu</strong> až do konca!<br>
+        Nech ťa aj v novom roku života vedie len správnym smerom –
+        k zdraviu, šťastiu a veľkým úspechom.
       </p>
-      <button id="replay-btn" class="btn-gold">Hrať znova</button>
+      <button class="btn-gold" id="btn-replay">Hrať znova</button>
+    </div>
+  </section>
+
+  <!-- ============ VÝHRA – písmená (overlay) ============ -->
+  <div id="win-overlay">
+    <div class="win-box">
+      <div class="win-title">Výborne! 🎉</div>
+      <div class="win-sub">Získal si písmená:</div>
+      <div class="win-letters" id="win-letters"></div>
+      <button class="btn-gold" id="btn-win-ok">Pokračovať</button>
     </div>
   </div>
 
+</div>
 <script src="script.js"></script>
 </body>
 </html>
