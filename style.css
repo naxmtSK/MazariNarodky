@@ -177,11 +177,57 @@ button {
   color: var(--success);
 }
 
+/* ROOM SCENE (walls + floor ambience) */
+.room-scene {
+  position: relative;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(212, 175, 55, 0.08), transparent 70%),
+    linear-gradient(180deg, #201c30 0%, #1c1828 55%, #241a16 55%, #1a120e 100%);
+  border-top: 1px solid rgba(212, 175, 55, 0.15);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+  overflow: hidden;
+}
+
+.room-scene::before {
+  /* wood wainscoting baseboard */
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 40%;
+  background: repeating-linear-gradient(
+    90deg,
+    #2b1d14,
+    #2b1d14 38px,
+    #24170f 38px,
+    #24170f 40px
+  );
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.room-rug {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 420px;
+  max-width: 70%;
+  height: 90px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(139, 42, 42, 0.35), transparent 75%);
+  border-radius: 50%;
+  filter: blur(2px);
+  pointer-events: none;
+}
+
 /* ROOM LAYOUT */
 .room {
+  position: relative;
+  z-index: 1;
   max-width: 1100px;
   margin: 0 auto;
-  padding: 24px 16px;
+  padding: 32px 16px 8px;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   gap: 24px;
@@ -198,57 +244,130 @@ button {
 }
 
 .clue-panel {
-  background: linear-gradient(180deg, var(--bg-panel), var(--bg-dark));
-  border: 1px solid rgba(212, 175, 55, 0.25);
-  border-radius: 14px;
-  padding: 20px;
-  box-shadow: 0 12px 30px var(--shadow);
+  background: transparent;
+  border: none;
+  padding: 0;
+  box-shadow: none;
 }
 
 .clue-panel h2 {
   color: var(--gold-soft);
-  font-size: 1.1rem;
-  margin-bottom: 12px;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
   text-align: center;
+  text-transform: uppercase;
+  opacity: 0.85;
 }
 
-.clue-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
+/* Wooden cabinet holding the clue shelves */
+.shelf-unit {
+  position: relative;
+  background: linear-gradient(160deg, #4a3320, #2a1c10 70%);
+  border: 1px solid #5c4025;
+  border-radius: 10px 10px 4px 4px;
+  padding: 22px 14px 10px;
   margin-bottom: 16px;
+  box-shadow:
+    inset 0 2px 8px rgba(0, 0, 0, 0.45),
+    0 16px 28px var(--shadow);
+}
+
+.shelf-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 22px;
+  padding-bottom: 22px;
+}
+
+.shelf-plank {
+  height: 9px;
+  margin: -22px -14px 20px;
+  background: linear-gradient(180deg, #7a5530, #43290f);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 @media (max-width: 480px) {
-  .clue-grid {
-    grid-template-columns: repeat(3, 1fr);
+  .shelf-row {
+    gap: 14px;
   }
 }
 
 .clue-card {
-  aspect-ratio: 1;
-  background: var(--bg-card);
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  border-radius: 10px;
+  position: relative;
+  background: none;
+  border: none;
+  padding: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
-  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
 }
 
-.clue-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--gold);
+.clue-emoji {
+  display: inline-block;
+  font-size: 2.2rem;
+  filter: drop-shadow(0 8px 6px rgba(0, 0, 0, 0.55));
+  animation: clueFloat 3.6s ease-in-out infinite;
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-.clue-card.viewed {
-  background: rgba(212, 175, 55, 0.12);
-  border-color: var(--gold);
+.clue-card:nth-child(2) .clue-emoji { animation-delay: 0.4s; }
+.clue-card:nth-child(3) .clue-emoji { animation-delay: 0.8s; }
+
+@keyframes clueFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.clue-card::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.35), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: -1;
+}
+
+.clue-card:hover .clue-emoji {
+  transform: translateY(-6px) scale(1.1);
+  filter: drop-shadow(0 4px 10px rgba(212, 175, 55, 0.55));
+}
+
+.clue-card:hover::before {
+  opacity: 1;
+}
+
+.clue-card.viewed .clue-emoji {
+  filter: drop-shadow(0 4px 10px rgba(212, 175, 55, 0.7));
 }
 
 .clue-card.viewed::after {
-  content: "";
+  content: "✓";
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: var(--success);
+  color: #0d2313;
+  font-size: 0.6rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+}
+
+.answer-form {
+  background: linear-gradient(180deg, var(--bg-panel), var(--bg-dark));
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 12px 24px var(--shadow);
 }
 
 .answer-form label {
@@ -320,7 +439,6 @@ button {
   margin: 6px 0 0;
 }
 
-.answer-form.solved .clue-grid,
 .answer-form.solved input,
 .answer-form.solved button {
   pointer-events: none;
@@ -329,48 +447,100 @@ button {
 
 /* DOOR */
 .door-wrap {
+  position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 20px 0;
+  padding: 20px 0 0;
 }
 
-.door-frame {
-  width: 90px;
-  height: 160px;
+.door-lamp-glow {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  width: 220px;
+  height: 220px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(232, 205, 122, 0.22), transparent 70%);
+  pointer-events: none;
+}
+
+.door {
+  position: relative;
+  width: 120px;
+  height: 220px;
+  background: linear-gradient(160deg, #5c3d22, #33200f 75%);
   border: 3px solid var(--gold);
-  border-radius: 8px 8px 4px 4px;
-  background: linear-gradient(180deg, #2a2a40, #1b1b2c);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 30px rgba(212, 175, 55, 0.15) inset;
+  border-radius: 60px 60px 6px 6px;
+  box-shadow:
+    inset 0 0 0 6px rgba(20, 14, 8, 0.4),
+    0 0 40px rgba(212, 175, 55, 0.12),
+    0 20px 40px var(--shadow);
 }
 
-.door-symbol {
-  color: var(--gold);
-  font-size: 1.8rem;
+.door-panel {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  border: 2px solid rgba(212, 175, 55, 0.45);
+  border-radius: 6px;
+  background: linear-gradient(160deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
-/* EXIT DOOR SECTION */
+.door-panel--top {
+  top: 46px;
+  height: 70px;
+}
+
+.door-panel--bottom {
+  top: 128px;
+  height: 70px;
+}
+
+.door-handle {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, var(--gold-soft), var(--gold) 70%);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  transform: translateY(-50%);
+}
+
+/* EXIT DOOR SECTION (brass plaque mounted under the door) */
 .exit-door {
-  max-width: 480px;
-  margin: 8px auto 60px;
-  text-align: center;
-  background: linear-gradient(180deg, var(--bg-panel), var(--bg-dark));
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  border-radius: 14px;
-  padding: 24px;
-  box-shadow: 0 12px 30px var(--shadow);
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  padding: 8px 16px 48px;
 }
 
-.exit-door h2 {
+.exit-plaque {
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  background: linear-gradient(160deg, #6b4a2a, #3a2712 80%);
+  border: 2px solid var(--gold);
+  border-radius: 10px;
+  padding: 22px 24px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 16px 32px var(--shadow);
+}
+
+.exit-plaque h2 {
   color: var(--gold-soft);
   margin-bottom: 8px;
+  font-size: 1.15rem;
 }
 
-.exit-door p {
-  color: var(--muted);
+.exit-plaque p {
+  color: var(--cream);
+  opacity: 0.8;
   font-size: 0.9rem;
   margin: 0 0 16px;
 }
