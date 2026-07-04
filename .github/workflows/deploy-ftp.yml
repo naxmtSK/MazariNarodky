@@ -19,7 +19,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
+          protocol: ftp
           # Folder on the FTP server the files should land in. "./" means
           # the FTP account's root folder — change it if you want a
           # subfolder, e.g. "./martin-oslava/".
