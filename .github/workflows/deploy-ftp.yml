@@ -22,13 +22,20 @@ jobs:
           mkdir -p deploy
           cp index.html style.css script.js deploy/
 
-      - name: Deploy over SFTP
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          port: "22"
-          local_path: "./deploy/*"
-          remote_path: "./"
-          sftp_only: true
+      # TEMPORARY debug step: previous attempts got the connection closed
+      # right after the SSH handshake, before any file transfer, which
+      # looks like an auth rejection. Running the real openssh sftp
+      # client in verbose mode shows the exact reason instead of relying
+      # on a wrapper action's limited log output.
+      - name: Debug SFTP connection
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq sshpass
+          sshpass -e sftp -v -o StrictHostKeyChecking=no -o BatchMode=no -P 22 "$FTP_USERNAME@$FTP_SERVER" <<'EOF' || true
+          pwd
+          ls
+          bye
+          EOF
+        env:
+          SSHPASS: ${{ secrets.FTP_PASSWORD }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
