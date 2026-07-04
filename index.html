@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Narodeninová úniková miestnosť pre Martina</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- INTRO -->
+  <div id="intro-screen" class="screen active">
+    <div class="intro-content">
+      <div class="lock-icon">🔐</div>
+      <h1>Narodeninová úniková miestnosť</h1>
+      <p class="subtitle">pripravená pre Martina</p>
+      <p class="intro-text">
+        Vitaj v tajnej miestnosti plnej indícií. Preskúmaj oba regály,
+        vyrieš dve hádanky a spoj ich riešenia do jedného slovného spojenia,
+        ktorým odomkneš dvere. Za nimi ťa čaká prekvapenie.
+      </p>
+      <button id="start-btn" class="btn-gold">Vstúpiť do miestnosti</button>
+    </div>
+  </div>
+
+  <!-- GAME -->
+  <div id="game-screen" class="screen">
+    <header class="game-header">
+      <h1>Úniková miestnosť</h1>
+      <ol class="steps">
+        <li id="step-1" class="step active"><span>1</span>Financie</li>
+        <li id="step-2" class="step"><span>2</span>Cesta</li>
+        <li id="step-3" class="step"><span>3</span>Dvere</li>
+      </ol>
+    </header>
+
+    <main class="room">
+
+      <section class="clue-panel" id="panel-financial" data-stage="financial">
+        <h2>Regál I.</h2>
+        <div class="clue-grid">
+          <button class="clue-card" data-clue="coins" aria-label="Indícia: mince">
+            <span class="clue-emoji">🪙</span>
+          </button>
+          <button class="clue-card" data-clue="chart" aria-label="Indícia: graf rastu">
+            <span class="clue-emoji">📈</span>
+          </button>
+          <button class="clue-card" data-clue="calculator" aria-label="Indícia: kalkulačka">
+            <span class="clue-emoji">🧮</span>
+          </button>
+          <button class="clue-card" data-clue="house" aria-label="Indícia: dom">
+            <span class="clue-emoji">🏠</span>
+          </button>
+          <button class="clue-card" data-clue="shield" aria-label="Indícia: poistný štít">
+            <span class="clue-emoji">🛡️</span>
+          </button>
+        </div>
+        <form class="answer-form" data-stage="financial">
+          <label for="answer-financial">Čo spája tieto indície?</label>
+          <div class="answer-row">
+            <input type="text" id="answer-financial" autocomplete="off" placeholder="Zadaj pojem…">
+            <button type="submit">Potvrdiť</button>
+          </div>
+          <p class="feedback" id="feedback-financial"></p>
+          <p class="hint" id="hint-financial"></p>
+        </form>
+      </section>
+
+      <div class="door-wrap" aria-hidden="true">
+        <div class="door-frame">
+          <div class="door-symbol">✧</div>
+        </div>
+      </div>
+
+      <section class="clue-panel" id="panel-cesta" data-stage="cesta">
+        <h2>Regál II.</h2>
+        <div class="clue-grid">
+          <button class="clue-card" data-clue="map" aria-label="Indícia: mapa">
+            <span class="clue-emoji">🗺️</span>
+          </button>
+          <button class="clue-card" data-clue="compass" aria-label="Indícia: kompas">
+            <span class="clue-emoji">🧭</span>
+          </button>
+          <button class="clue-card" data-clue="arrows" aria-label="Indícia: šípky">
+            <span class="clue-emoji">➡️</span>
+          </button>
+          <button class="clue-card" data-clue="milestone" aria-label="Indícia: míľnik">
+            <span class="clue-emoji">🏁</span>
+          </button>
+          <button class="clue-card" data-clue="signpost" aria-label="Indícia: smerovník">
+            <span class="clue-emoji">🪧</span>
+          </button>
+        </div>
+        <form class="answer-form" data-stage="cesta">
+          <label for="answer-cesta">Čo vytvárajú tieto indície?</label>
+          <div class="answer-row">
+            <input type="text" id="answer-cesta" autocomplete="off" placeholder="Zadaj pojem…">
+            <button type="submit">Potvrdiť</button>
+          </div>
+          <p class="feedback" id="feedback-cesta"></p>
+          <p class="hint" id="hint-cesta"></p>
+        </form>
+      </section>
+
+    </main>
+
+    <section class="exit-door" id="exit-section">
+      <h2>🚪 Exit dvere</h2>
+      <p>Spoj obe riešenia do jednej odpovede a zadaj ju sem.</p>
+      <form id="final-form">
+        <div class="answer-row">
+          <input type="text" id="final-answer" autocomplete="off" placeholder="Zadaj finálne riešenie…" disabled>
+          <button type="submit" id="final-submit" disabled>Odomknúť</button>
+        </div>
+      </form>
+      <p class="feedback" id="final-feedback"></p>
+    </section>
+  </div>
+
+  <!-- CLUE MODAL -->
+  <div class="clue-modal" id="clue-modal">
+    <div class="clue-modal-content">
+      <button class="close-modal" id="close-modal" aria-label="Zavrieť">✕</button>
+      <div class="clue-modal-icon" id="clue-modal-icon"></div>
+      <p id="clue-modal-text"></p>
+    </div>
+  </div>
+
+  <!-- CELEBRATION -->
+  <div id="celebration-screen" class="screen">
+    <canvas id="confetti-canvas"></canvas>
+    <div class="celebration-content">
+      <h1>🎉 Všetko najlepšie, Martin! 🎉</h1>
+      <p class="celebration-text">
+        Nech ťa tvoja <strong>finančná cesta</strong> aj ten nadchádzajúci rok
+        vedie len k úspechu, radosti a k ešte väčším víťazstvám.<br><br>
+        Veľa šťastia, zdravia a energie do ďalšieho roku života!
+      </p>
+      <button id="replay-btn" class="btn-gold">Hrať znova</button>
+    </div>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,483 @@
+:root {
+  --bg-dark: #14141f;
+  --bg-panel: #1e1e2e;
+  --bg-card: #262638;
+  --gold: #d4af37;
+  --gold-soft: #e8cd7a;
+  --cream: #f3ecd9;
+  --muted: #a9a3c2;
+  --danger: #d16565;
+  --success: #6fbf82;
+  --shadow: rgba(0, 0, 0, 0.45);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background: radial-gradient(circle at 50% 0%, #22223a 0%, var(--bg-dark) 70%);
+  color: var(--cream);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+h1, h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* SCREENS */
+.screen {
+  display: none;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.screen.active {
+  display: block;
+}
+
+/* INTRO */
+#intro-screen.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.intro-content {
+  max-width: 560px;
+  text-align: center;
+  background: linear-gradient(180deg, var(--bg-panel), var(--bg-dark));
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 16px;
+  padding: 48px 32px;
+  box-shadow: 0 20px 60px var(--shadow);
+}
+
+.lock-icon {
+  font-size: 3rem;
+  margin-bottom: 8px;
+}
+
+.intro-content h1 {
+  font-size: 1.8rem;
+  color: var(--gold-soft);
+}
+
+.subtitle {
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  margin-top: 6px;
+}
+
+.intro-text {
+  margin: 24px 0 32px;
+  color: var(--cream);
+  opacity: 0.9;
+}
+
+.btn-gold {
+  background: linear-gradient(180deg, var(--gold-soft), var(--gold));
+  color: #2a2110;
+  border: none;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 14px 32px;
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(212, 175, 55, 0.45);
+}
+
+.btn-gold:active {
+  transform: translateY(0);
+}
+
+/* GAME HEADER */
+.game-header {
+  text-align: center;
+  padding: 32px 16px 16px;
+}
+
+.game-header h1 {
+  font-size: 1.5rem;
+  color: var(--gold-soft);
+}
+
+.steps {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin: 20px 0 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  opacity: 0.5;
+  transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+.step span {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+}
+
+.step.active {
+  opacity: 1;
+  color: var(--cream);
+}
+
+.step.active span {
+  border-color: var(--gold);
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--gold-soft);
+}
+
+.step.done {
+  opacity: 1;
+  color: var(--success);
+}
+
+.step.done span {
+  border-color: var(--success);
+  background: rgba(111, 191, 130, 0.15);
+  color: var(--success);
+}
+
+/* ROOM LAYOUT */
+.room {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .room {
+    grid-template-columns: 1fr;
+  }
+  .door-wrap {
+    order: 3;
+  }
+}
+
+.clue-panel {
+  background: linear-gradient(180deg, var(--bg-panel), var(--bg-dark));
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 12px 30px var(--shadow);
+}
+
+.clue-panel h2 {
+  color: var(--gold-soft);
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.clue-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 480px) {
+  .clue-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.clue-card {
+  aspect-ratio: 1;
+  background: var(--bg-card);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.clue-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold);
+}
+
+.clue-card.viewed {
+  background: rgba(212, 175, 55, 0.12);
+  border-color: var(--gold);
+}
+
+.clue-card.viewed::after {
+  content: "";
+}
+
+.answer-form label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.answer-row {
+  display: flex;
+  gap: 8px;
+}
+
+.answer-row input {
+  flex: 1;
+  min-width: 0;
+  background: var(--bg-card);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--cream);
+  font-size: 1rem;
+}
+
+.answer-row input:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.answer-row input:disabled {
+  opacity: 0.5;
+}
+
+.answer-row button {
+  background: var(--gold);
+  color: #2a2110;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.answer-row button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.feedback {
+  min-height: 1.2em;
+  font-size: 0.9rem;
+  margin: 10px 0 0;
+}
+
+.feedback.error {
+  color: var(--danger);
+}
+
+.feedback.success {
+  color: var(--success);
+}
+
+.hint {
+  min-height: 1.2em;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+  margin: 6px 0 0;
+}
+
+.answer-form.solved .clue-grid,
+.answer-form.solved input,
+.answer-form.solved button {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* DOOR */
+.door-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.door-frame {
+  width: 90px;
+  height: 160px;
+  border: 3px solid var(--gold);
+  border-radius: 8px 8px 4px 4px;
+  background: linear-gradient(180deg, #2a2a40, #1b1b2c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.15) inset;
+}
+
+.door-symbol {
+  color: var(--gold);
+  font-size: 1.8rem;
+}
+
+/* EXIT DOOR SECTION */
+.exit-door {
+  max-width: 480px;
+  margin: 8px auto 60px;
+  text-align: center;
+  background: linear-gradient(180deg, var(--bg-panel), var(--bg-dark));
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 12px 30px var(--shadow);
+}
+
+.exit-door h2 {
+  color: var(--gold-soft);
+  margin-bottom: 8px;
+}
+
+.exit-door p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0 0 16px;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+.shake {
+  animation: shake 0.4s ease;
+  border-color: var(--danger) !important;
+}
+
+/* CLUE MODAL */
+.clue-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 18, 0.75);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 50;
+}
+
+.clue-modal.active {
+  display: flex;
+}
+
+.clue-modal-content {
+  position: relative;
+  max-width: 360px;
+  background: linear-gradient(180deg, var(--bg-panel), var(--bg-dark));
+  border: 1px solid var(--gold);
+  border-radius: 14px;
+  padding: 32px 24px;
+  text-align: center;
+  box-shadow: 0 20px 60px var(--shadow);
+}
+
+.clue-modal-icon {
+  font-size: 2.4rem;
+  margin-bottom: 12px;
+}
+
+#clue-modal-text {
+  color: var(--cream);
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.close-modal {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.close-modal:hover {
+  color: var(--gold);
+}
+
+/* CELEBRATION */
+#celebration-screen {
+  position: relative;
+  background: radial-gradient(circle at 50% 30%, #2a2445, var(--bg-dark) 75%);
+}
+
+#celebration-screen.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+#confetti-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.celebration-content {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+  text-align: center;
+  background: rgba(20, 20, 31, 0.6);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 20px;
+  padding: 48px 32px;
+  backdrop-filter: blur(2px);
+}
+
+.celebration-content h1 {
+  font-size: 2rem;
+  color: var(--gold-soft);
+  margin-bottom: 20px;
+}
+
+.celebration-text {
+  font-size: 1.15rem;
+  color: var(--cream);
+  margin-bottom: 32px;
+}
